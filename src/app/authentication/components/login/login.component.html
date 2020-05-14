@@ -1,0 +1,63 @@
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <div class="row justify-content-center mx-auto my-2">
+      <img width="200" alt="User Logo"
+        src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUwIDUwIiBoZWlnaHQ9IjUwcHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgd2lkdGg9IjUwcHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxjaXJjbGUgY3g9IjI1IiBjeT0iMjUiIGZpbGw9Im5vbmUiIHI9IjI0IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBzdHJva2Utd2lkdGg9IjIiLz48cmVjdCBmaWxsPSJub25lIiBoZWlnaHQ9IjUwIiB3aWR0aD0iNTAiLz48cGF0aCBkPSJNMjkuOTMzLDM1LjUyOGMtMC4xNDYtMS42MTItMC4wOS0yLjczNy0wLjA5LTQuMjFjMC43My0wLjM4MywyLjAzOC0yLjgyNSwyLjI1OS00Ljg4OGMwLjU3NC0wLjA0NywxLjQ3OS0wLjYwNywxLjc0NC0yLjgxOCAgYzAuMTQzLTEuMTg3LTAuNDI1LTEuODU1LTAuNzcxLTIuMDY1YzAuOTM0LTIuODA5LDIuODc0LTExLjQ5OS0zLjU4OC0xMi4zOTdjLTAuNjY1LTEuMTY4LTIuMzY4LTEuNzU5LTQuNTgxLTEuNzU5ICBjLTguODU0LDAuMTYzLTkuOTIyLDYuNjg2LTcuOTgxLDE0LjE1NmMtMC4zNDUsMC4yMS0wLjkxMywwLjg3OC0wLjc3MSwyLjA2NWMwLjI2NiwyLjIxMSwxLjE3LDIuNzcxLDEuNzQ0LDIuODE4ICBjMC4yMiwyLjA2MiwxLjU4LDQuNTA1LDIuMzEyLDQuODg4YzAsMS40NzMsMC4wNTUsMi41OTgtMC4wOTEsNC4yMWMtMS4yNjEsMy4zOS03LjczNywzLjY1NS0xMS40NzMsNi45MjQgIGMzLjkwNiwzLjkzMywxMC4yMzYsNi43NDYsMTYuOTE2LDYuNzQ2czE0LjUzMi01LjI3NCwxNS44MzktNi43MTNDMzcuNjg4LDM5LjE4NiwzMS4xOTcsMzguOTMsMjkuOTMzLDM1LjUyOHoiLz48L3N2Zz4=">
+    </div>
+    <form class="form-horizontal" [formGroup]="loginForm">
+      <fieldset>
+        <div class="form-group">
+          <label class="col-4 control-label" for="userNameId">User Name</label>
+          <div class="col">
+            <input class="form-control" id="userNameId" type="text" [formControlName]="userControlName"
+              placeholder="User Name (required)" [ngClass]="{'is-invalid':isUsernameInvalid()}" />
+            <div class="help-block">
+              <ng-container *ngIf="isUsernameInvalid()">
+                <span *ngFor="let error of activeValidationErrors[userControlName]">
+                  {{error}}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-4 control-label" for="passwordId">Password</label>
+          <div class="col">
+            <input class="form-control" id="passwordId" [formControlName]="passwordControlName" type="password"
+              placeholder="Password (required)" [ngClass]="{'is-invalid': isPasswordInvalid()}" />
+            <span class="help-block" *ngIf="isPasswordInvalid()">
+              <span *ngFor="let error of activeValidationErrors[passwordControlName]">
+                {{error}}
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-4 col-md-offset-2">
+            <span>
+              <button class="btn btn-primary" type="button" [disabled]="loginForm.invalid" (click)="login()">
+                Log In
+              </button>
+            </span>
+            <span>
+              <a class="btn btn-default" routerLink="/registration">
+                Register
+              </a>
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <div class="results">
+      <div class="alert alert-danger" *ngIf="actionsSuccesResults?.length>0">
+        <p *ngFor="let error of actionsSuccesResults">{{error}}</p>
+      </div>
+    </div>
+    <div class="alert alert-danger" *ngIf="activeValidationErrors[userControlName]||activeValidationErrors[passwordControlName]">
+      <p *ngFor="let error of activeValidationErrors[userControlName]">{{error}}</p>
+      <p *ngFor="let error of activeValidationErrors[passwordControlName]">{{error}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+$content-shadow : 10px 10px 5px 0px rgba(0,0,0,0.75);
+.content{
+  background-color: #f0f0f0;
+  -webkit-box-shadow: $content-shadow;
+  -moz-box-shadow: $content-shadow;
+  box-shadow: $content-shadow;
+}
+
+.tall-border{
+  border-left: 1 px solid black;
+  border-right: 1 px solid black;
+}
